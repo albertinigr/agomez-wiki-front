@@ -2,6 +2,7 @@ import * as React from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import theme from "./theme.ts";
+import { GlobalContextProvider } from "./context/GlobalContext.tsx";
 
 export default function withProviders<P extends React.JSX.IntrinsicAttributes>(
   Component: React.ComponentType<P>
@@ -10,7 +11,9 @@ export default function withProviders<P extends React.JSX.IntrinsicAttributes>(
     return (
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Component {...props} />
+        <GlobalContextProvider>
+          <Component {...props} />
+        </GlobalContextProvider>
       </ThemeProvider>
     );
   }

@@ -1,46 +1,70 @@
 import Box from "@mui/material/Box";
-import Link from "@mui/material/Link";
-import { AppBar, Toolbar } from "@mui/material";
+import { AppBar, Button, IconButton, Stack, Toolbar } from "@mui/material";
+import AccountMenu from "../menu/account-menu";
+import { Language, Settings } from "@mui/icons-material";
+import Typography from "../form-components/Typography";
+import PreferenceDialog from "../dialog/PreferenceDialog";
+import { useGlobalContext } from "../../context/GlobalContext";
+import useLocale from "../../hooks/useLocale";
 
-const rightLink = {
-  fontSize: 16,
-  color: "common.white",
-  ml: 3,
-};
+function PreferenceMenu() {
+  const { togglePreferences } = useGlobalContext();
+  const { locale } = useLocale();
+
+  return (
+    <>
+      <Button
+        onClick={togglePreferences}
+        sx={{
+          ml: 2,
+          color: "common.white",
+          fontWeight: 400,
+          textTransform: "none",
+          fontSize: 16,
+        }}
+      >
+        {locale.name}
+        <Language sx={{ ml: 1 }} />
+      </Button>
+      <PreferenceDialog />
+    </>
+  );
+}
 
 function TopBar() {
+  const menuItems = [
+    {
+      icon: <Language fontSize="small" />,
+      label: "Language",
+      onClick: () => {},
+    },
+    {
+      icon: <Settings fontSize="small" />,
+      label: "Settings",
+      onClick: () => {},
+    },
+  ];
+
   return (
     <div>
       <AppBar position="fixed">
         <Toolbar sx={{ justifyContent: "space-between" }}>
-          <Box sx={{ flex: 1 }} />
-          <Link
-            variant="h6"
-            underline="none"
-            color="inherit"
-            href="/premium-themes/onepirate/"
-            sx={{ fontSize: 24 }}
-          >
-            {"onepirate"}
-          </Link>
-          <Box sx={{ flex: 1, display: "flex", justifyContent: "flex-end" }}>
-            <Link
+          <Stack direction="row" sx={{ flex: 1 }} spacing={0.3}>
+            <Typography variant="h6" component="h1" color="inherit">
+              Wiki
+            </Typography>
+            <Typography
+              variant="h6"
+              component="h1"
               color="inherit"
-              variant="h6"
-              underline="none"
-              href="/premium-themes/onepirate/sign-in/"
-              sx={rightLink}
+              sx={{ fontWeight: 400 }}
             >
-              {"Sign In"}
-            </Link>
-            <Link
-              variant="h6"
-              underline="none"
-              href="/premium-themes/onepirate/sign-up/"
-              sx={{ ...rightLink, color: "secondary.main" }}
-            >
-              {"Sign Up"}
-            </Link>
+              pedia
+            </Typography>
+          </Stack>
+          <Box sx={{ flex: 1, display: "flex", justifyContent: "flex-end" }}>
+            <PreferenceMenu />
+            <AccountMenu avatar="Albertinigr" items={menuItems} />
           </Box>
         </Toolbar>
       </AppBar>

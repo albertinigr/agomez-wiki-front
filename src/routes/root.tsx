@@ -2,15 +2,8 @@ import * as React from "react";
 import TopBar from "../components/layout/topbar";
 import Footer from "../components/layout/footer";
 import withProviders from "../providers";
-import { Link, Outlet } from "react-router-dom";
-import { Box, Container } from "@mui/material";
-// import ProductCategories from "./modules/views/ProductCategories";
-// import ProductSmokingHero from "./modules/views/ProductSmokingHero";
-// import AppFooter from "./modules/views/AppFooter";
-// import ProductValues from "./modules/views/ProductValues";
-// import ProductHowItWorks from "./modules/views/ProductHowItWorks";
-// import ProductCTA from "./modules/views/ProductCTA";
-// import ProductHero from "./components/views/ProductHero";
+import { Outlet } from "react-router-dom";
+import { Container } from "@mui/material";
 
 function Root() {
   return (
