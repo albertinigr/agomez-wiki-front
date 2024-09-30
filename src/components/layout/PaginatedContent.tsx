@@ -21,7 +21,7 @@ export default function PaginatedContent() {
   }, []);
 
   const handleChangePage = (_: unknown, newPage: number) =>
-    searchFeeds({ ...searchFilters, page: newPage + 1 });
+    searchFeeds({ ...searchFilters, page: newPage });
 
   const handleChangeRowsPerPage = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -55,16 +55,19 @@ export default function PaginatedContent() {
   return (
     <Stack spacing={2}>
       <Grid container spacing={3}>
-        {searchResults?.items?.map((article, index) => {
+        {searchResults?.items?.map((article) => {
           const visited = visitedArticles.includes(
             format === "mobile"
               ? article.content_urls.mobile.page
               : article.content_urls.desktop.page
           );
           return (
-            <Grid size={2.4} sx={{ textAlign: "center" }}>
+            <Grid
+              key={article.wikibase_item}
+              size={{ xs: 12, sm: 6, md: 4, lg: 2.4 }}
+              sx={{ textAlign: "center" }}
+            >
               <ArticleCard
-                key={index}
                 article={article}
                 handleClick={handleOpenArticle(article)}
                 visited={visited}
@@ -75,12 +78,12 @@ export default function PaginatedContent() {
       </Grid>
       <TablePagination
         component="div"
-        count={searchResults?.totalItems}
-        page={searchResults?.page}
-        rowsPerPage={searchResults?.size}
+        count={searchResults?.totalItems ?? 0}
+        page={searchResults?.page ?? 0}
+        rowsPerPage={searchResults?.size ?? 5}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
-        labelRowsPerPage={t("app.rowsPerPage")}
+        labelRowsPerPage={format === "mobile" ? "" : t("app.rowsPerPage")}
         rowsPerPageOptions={[5, 10, 25, 50, 100]}
       />
     </Stack>

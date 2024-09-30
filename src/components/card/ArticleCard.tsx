@@ -2,11 +2,7 @@ import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
-import Avatar from "@mui/material/Avatar";
-import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import { red } from "@mui/material/colors";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { ArticleEssencial } from "../../types/article-essencial";
 import dayjs from "dayjs";
 import { CARD_HEIGHT, DATE_FORMAT } from "../../libs/constants";
@@ -26,7 +22,6 @@ export default function ArticleCard({
   return (
     <Card sx={{ height: CARD_HEIGHT }}>
       <CardHeader
-        // avatar={<Avatar sx={{ bgcolor: red[500] }}>R</Avatar>}
         action={visited && <CheckOutlined />}
         title={
           <Typography variant="subtitle1" noWrap>

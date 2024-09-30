@@ -3,8 +3,8 @@ import { FEED, TRANSLATE_FEED } from "./endpoints";
 const fetchFeeds = async ({
   locale = "en",
   date = new Date().toISOString().split("T")[0].replace(/-/g, "/"),
-  page = 1,
-  size = 10,
+  page = 0,
+  size = 5,
 }: {
   locale: string;
   date: string;
@@ -20,8 +20,8 @@ const translateFeeds = async ({
   locale = "en",
   target = "es",
   date = new Date().toISOString().split("T")[0].replace(/-/g, "/"),
-  page = 1,
-  size = 10,
+  page = 0,
+  size = 5,
 }: {
   locale: string;
   target: string;

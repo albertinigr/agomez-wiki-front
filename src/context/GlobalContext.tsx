@@ -18,7 +18,7 @@ const DEFAULT_PAGINATED_RESOURCE: PaginatedResource<ArticleEssencial> = {
 const DEFAULT_SEARCH_FILTER: SearchFilter = {
   date: dayjs().format(DATE_FORMAT),
   target: null,
-  page: 1,
+  page: 0,
   size: 5,
 };
 

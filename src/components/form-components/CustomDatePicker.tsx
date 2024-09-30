@@ -31,7 +31,6 @@ export function CustomDatePicker({
                 size: "small",
                 readOnly: true,
                 sx: { borderRadius: 0 },
-                disableUnderline: true,
               },
             },
           }}
