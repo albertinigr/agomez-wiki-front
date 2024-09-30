@@ -17,7 +17,6 @@ export function CustomDatePicker({
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DemoContainer components={["DatePicker"]}>
         <DatePicker
-          label={label}
           value={value}
           onChange={onChange}
           slotProps={{

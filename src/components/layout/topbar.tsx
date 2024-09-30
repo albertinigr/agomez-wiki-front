@@ -11,6 +11,7 @@ import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { DATE_FORMAT } from "../../libs/constants";
 import useFeed from "../../hooks/useFeed";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const rightLink = {
   fontSize: 16,
@@ -43,9 +44,15 @@ function PreferenceMenu() {
 }
 
 function TopBar() {
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
   const [date, setDate] = useState<string>(dayjs().format(DATE_FORMAT));
   const [target, setTarget] = useState<string | null>(null);
   const { searchFeeds, searchTranslatedFeeds } = useFeed();
+
+  useEffect(() => {
+    searchFeeds(date, 1);
+  }, []);
 
   const handleSearch = () => {
     if (!date) {
@@ -56,6 +63,10 @@ function TopBar() {
       return searchTranslatedFeeds(date, target, page);
     } else {
       searchFeeds(date, page);
+    }
+
+    if (pathname !== "/") {
+      navigate("/");
     }
   };
 

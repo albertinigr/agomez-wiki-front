@@ -1,5 +1,7 @@
 import { useGlobalContext } from "../context/GlobalContext";
 import { fetchFeeds, translateFeeds } from "../services/feed.service";
+import { ArticleEssencial } from "../types/article-essencial";
+import { PaginatedResource } from "../types/paginated-resource";
 
 export default function useFeed() {
   const {
@@ -10,7 +12,10 @@ export default function useFeed() {
     setSearchResults,
   } = useGlobalContext();
 
-  const searchFeeds = async (date: string, page: number) => {
+  const searchFeeds = async (
+    date: string,
+    page: number
+  ): Promise<PaginatedResource<ArticleEssencial>> => {
     setLoadingSearchResults(true);
     const feeds = await fetchFeeds({
       locale: locale.code,
@@ -27,7 +32,7 @@ export default function useFeed() {
     date: string,
     target: string,
     page: number
-  ) => {
+  ): Promise<PaginatedResource<ArticleEssencial>> => {
     setLoadingSearchResults(true);
     const feeds = await translateFeeds({
       locale: locale.code,
