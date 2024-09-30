@@ -76,6 +76,11 @@ function TopBar() {
           </Stack>
         </Toolbar>
       </AppBar>
+      {/* Placeholder for searchbar */}
+      <Box
+        component={"div"}
+        sx={{ display: { xs: "flex", sm: "none" }, height: "112px", flex: 1 }}
+      />
     </div>
   );
 }
