@@ -20,7 +20,8 @@ export default function CustomAutoComplete<T>({
       value={value}
       onChange={onChange}
       sx={{
-        width: "230px",
+        minWidth: "120px",
+        flex: 1,
         height: "40px",
         p: "0 !important",
         pr: "0 !important",

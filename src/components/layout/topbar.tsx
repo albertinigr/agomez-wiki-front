@@ -1,19 +1,13 @@
 import Box from "@mui/material/Box";
 import { AppBar, Button, Stack, Toolbar } from "@mui/material";
-import { Language, Search } from "@mui/icons-material";
+import { Language } from "@mui/icons-material";
 import Typography from "../form-components/Typography";
 import PreferenceDialog from "../dialog/PreferenceDialog";
 import { useGlobalContext } from "../../context/GlobalContext";
 import useLocale from "../../hooks/useLocale";
-import { t } from "../lang";
-import { CustomDatePicker } from "../form-components/CustomDatePicker";
-import dayjs, { Dayjs } from "dayjs";
-import { SyntheticEvent, useEffect } from "react";
-import { DATE_FORMAT } from "../../libs/constants";
 import useFeed from "../../hooks/useFeed";
-import { useLocation, useNavigate } from "react-router-dom";
-import { Locale } from "../../types/locale";
-import CustomAutoComplete from "../form-components/CustomAutoComplete";
+import { SearchBar } from "../search/SearchBar";
+import { useEffect } from "react";
 
 function PreferenceMenu() {
   const { togglePreferences } = useGlobalContext();
@@ -40,31 +34,11 @@ function PreferenceMenu() {
 }
 
 function TopBar() {
-  const navigate = useNavigate();
-  const { pathname } = useLocation();
-  const { availableLanguages } = useLocale();
-  const { searchFilters, setSearchFilters, searchFeeds } = useFeed();
+  const { searchFilters, searchFeeds } = useFeed();
 
   useEffect(() => {
     searchFeeds(searchFilters);
   }, []);
-
-  const handleSearch = () => {
-    searchFeeds(searchFilters);
-    if (pathname !== "/") navigate("/");
-  };
-
-  const handleDateChange = (date: Dayjs | null) => {
-    const selectedDate = dayjs(date).format(DATE_FORMAT);
-    setSearchFilters({ ...searchFilters, date: selectedDate });
-  };
-
-  const handleTargetChange = (
-    _: SyntheticEvent<Element, Event>,
-    newValue: Locale | null
-  ) => {
-    setSearchFilters({ ...searchFilters, target: newValue });
-  };
 
   return (
     <div>
@@ -86,29 +60,22 @@ function TopBar() {
           <Stack
             direction="row"
             spacing={2}
-            sx={{ display: { xs: "none", md: "flex" }, alignItems: "center" }}
+            sx={{ display: { xs: "none", sm: "flex" }, alignItems: "center" }}
           >
-            <CustomDatePicker
-              value={dayjs(searchFilters.date)}
-              onChange={handleDateChange}
-            />
-            <CustomAutoComplete<Locale>
-              options={availableLanguages || []}
-              getOptionLabel={(option) => `${option.name} [${option.code}]`}
-              value={searchFilters.target}
-              onChange={handleTargetChange}
-            />
-            <Button color="inherit" onClick={handleSearch}>
-              {t("app.search")}
-              <Search fontSize="large" sx={{ pl: 2 }} />
-            </Button>
+            <SearchBar />
           </Stack>
           <Box sx={{ flex: 1, display: "flex", justifyContent: "flex-end" }}>
             <PreferenceMenu />
           </Box>
         </Toolbar>
+        <Toolbar
+          sx={{ display: { xs: "flex", sm: "none" }, alignItems: "center" }}
+        >
+          <Stack direction="row" spacing={1}>
+            <SearchBar />
+          </Stack>
+        </Toolbar>
       </AppBar>
-      <Toolbar />
     </div>
   );
 }

@@ -19,6 +19,7 @@ export function CustomDatePicker({
           onChange={onChange}
           slotProps={{
             textField: {
+              size: "small",
               sx: {
                 color: "#f8bbd0",
                 borderRadius: "0px",
@@ -30,7 +31,7 @@ export function CustomDatePicker({
               InputProps: {
                 size: "small",
                 readOnly: true,
-                sx: { borderRadius: 0 },
+                sx: { borderRadius: 0, flex: 1 },
               },
             },
           }}
