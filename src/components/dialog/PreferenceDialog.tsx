@@ -12,7 +12,6 @@ import {
 } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import { useGlobalContext } from "../../context/GlobalContext";
-// import PanelSwitch from "../switch/PanelSwitch";
 import Typography from "../form-components/Typography";
 import { useLocation, useNavigate } from "react-router-dom";
 import { CloseOutlined } from "@mui/icons-material";
@@ -25,16 +24,6 @@ export default function PreferenceDialog() {
   const { availableLanguages, locale, changeLocale } = useLocale();
   const { preferencesOpen, togglePreferences } = useGlobalContext();
   const [activeTab, setActiveTab] = useState(0);
-  // const { openPreferences } = useSearchParams();
-
-  // const changeLocale = (locale: string) => {
-  //   const currentLocale = "es";
-  //   const link = `${pathname.replace(
-  //     currentLocale,
-  //     locale
-  //   )}?openPreferences=true`;
-  //   navigate(link);
-  // };
 
   const closeMenu = () => {
     togglePreferences();
@@ -54,8 +43,10 @@ export default function PreferenceDialog() {
                 onClick={() => changeLocale({ code, name })}
               >
                 <Stack sx={{ justifyContent: "center" }}>
-                  <Typography className="capitalize">{name}</Typography>
-                  <Typography className="capitalize">[{code}]</Typography>
+                  <Typography sx={{ textTransform: "capitalize" }}>
+                    {name}
+                  </Typography>
+                  <Typography>[{code}]</Typography>
                 </Stack>
               </Button>
             </Grid>

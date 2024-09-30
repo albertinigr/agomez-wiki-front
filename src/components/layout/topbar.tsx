@@ -1,11 +1,12 @@
 import Box from "@mui/material/Box";
-import { AppBar, Button, IconButton, Stack, Toolbar } from "@mui/material";
+import { AppBar, Button, Stack, Toolbar } from "@mui/material";
 import AccountMenu from "../menu/account-menu";
 import { Language, Settings } from "@mui/icons-material";
 import Typography from "../form-components/Typography";
 import PreferenceDialog from "../dialog/PreferenceDialog";
 import { useGlobalContext } from "../../context/GlobalContext";
 import useLocale from "../../hooks/useLocale";
+import { t } from "../lang";
 
 function PreferenceMenu() {
   const { togglePreferences } = useGlobalContext();
@@ -63,6 +64,9 @@ function TopBar() {
             </Typography>
           </Stack>
           <Box sx={{ flex: 1, display: "flex", justifyContent: "flex-end" }}>
+            <Typography variant="h6" component="h1" color="inherit">
+              {t("app.title")}
+            </Typography>
             <PreferenceMenu />
             <AccountMenu avatar="Albertinigr" items={menuItems} />
           </Box>
