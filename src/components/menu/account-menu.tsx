@@ -5,7 +5,6 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
 import Tooltip from "@mui/material/Tooltip";
 
 export interface AccountMenuItem {
@@ -13,12 +12,6 @@ export interface AccountMenuItem {
   label: string;
   onClick: () => void;
 }
-
-const rightLink = {
-  fontSize: 16,
-  color: "common.white",
-  ml: 3,
-};
 
 export default function AccountMenu({
   avatar,
@@ -45,7 +38,6 @@ export default function AccountMenu({
   return (
     <Fragment>
       <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
-        <Typography sx={{ minWidth: 100 }}>Today</Typography>
         <Tooltip title="Account settings">
           <IconButton onClick={handleClick} size="small" sx={{ ml: 2 }}>
             {typeof avatar === "string" ? (

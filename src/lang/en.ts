@@ -4,4 +4,5 @@ export const en = {
   "app.language": "Language & Region",
   "app.setPreferences": "Set your preferences for the wiki.",
   "app.today": "Today",
+  "app.search": "Search",
 };

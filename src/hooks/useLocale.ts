@@ -29,7 +29,6 @@ export default function useLocale() {
     );
     if (!selectedLocale) return;
     setLocale(selectedLocale);
-    console.log("Locale changed to", selectedLocale);
   };
 
   return { locale, availableLanguages, changeLocale };

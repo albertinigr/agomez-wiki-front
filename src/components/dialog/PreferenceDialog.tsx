@@ -33,7 +33,9 @@ export default function PreferenceDialog() {
   const LanguagePanel = () => {
     if (!availableLanguages?.length) return null;
     return (
-      <Box sx={{ pt: 5, overflowY: "auto", maxHeight: "50vh" }}>
+      <Box
+        sx={{ pt: 5, overflowY: "auto", minHeight: "50vh", maxHeight: "50vh" }}
+      >
         <Grid container spacing={6}>
           {availableLanguages.map(({ code, name }) => (
             <Grid size={4} sx={{ textAlign: "center" }}>

@@ -4,4 +4,5 @@ export const ru = {
   "app.language": "Язык и регион",
   "app.setPreferences": "Установите свои предпочтения для вики.",
   "app.today": "Сегодня",
+  "app.search": "Поиск",
 };

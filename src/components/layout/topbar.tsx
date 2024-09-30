@@ -1,12 +1,22 @@
 import Box from "@mui/material/Box";
 import { AppBar, Button, Stack, Toolbar } from "@mui/material";
-import AccountMenu from "../menu/account-menu";
-import { Language, Settings } from "@mui/icons-material";
+import { Language, Search } from "@mui/icons-material";
 import Typography from "../form-components/Typography";
 import PreferenceDialog from "../dialog/PreferenceDialog";
 import { useGlobalContext } from "../../context/GlobalContext";
 import useLocale from "../../hooks/useLocale";
 import { t } from "../lang";
+import { CustomDatePicker } from "../form-components/CustomDatePicker";
+import dayjs from "dayjs";
+import { useEffect, useState } from "react";
+import { DATE_FORMAT } from "../../libs/constants";
+import useFeed from "../../hooks/useFeed";
+
+const rightLink = {
+  fontSize: 16,
+  color: "common.white",
+  ml: 3,
+};
 
 function PreferenceMenu() {
   const { togglePreferences } = useGlobalContext();
@@ -33,18 +43,21 @@ function PreferenceMenu() {
 }
 
 function TopBar() {
-  const menuItems = [
-    {
-      icon: <Language fontSize="small" />,
-      label: "Language",
-      onClick: () => {},
-    },
-    {
-      icon: <Settings fontSize="small" />,
-      label: "Settings",
-      onClick: () => {},
-    },
-  ];
+  const [date, setDate] = useState<string>(dayjs().format(DATE_FORMAT));
+  const [target, setTarget] = useState<string | null>(null);
+  const { searchFeeds, searchTranslatedFeeds } = useFeed();
+
+  const handleSearch = () => {
+    if (!date) {
+      return;
+    }
+    const page = 1;
+    if (target) {
+      return searchTranslatedFeeds(date, target, page);
+    } else {
+      searchFeeds(date, page);
+    }
+  };
 
   return (
     <div>
@@ -63,12 +76,21 @@ function TopBar() {
               pedia
             </Typography>
           </Stack>
+          <Box sx={{ display: { xs: "none", md: "flex" } }}>
+            <Button color="inherit" sx={rightLink} onClick={() => null}>
+              {t("app.today")}
+            </Button>
+            <CustomDatePicker
+              value={dayjs(date)}
+              onChange={(date) => setDate(dayjs(date).format(DATE_FORMAT))}
+            />
+            <Button color="inherit" sx={rightLink} onClick={handleSearch}>
+              <Search fontSize="large" sx={{ pr: 1 }} />
+              {t("app.search")}
+            </Button>
+          </Box>
           <Box sx={{ flex: 1, display: "flex", justifyContent: "flex-end" }}>
-            <Typography variant="h6" component="h1" color="inherit">
-              {t("app.title")}
-            </Typography>
             <PreferenceMenu />
-            <AccountMenu avatar="Albertinigr" items={menuItems} />
           </Box>
         </Toolbar>
       </AppBar>
