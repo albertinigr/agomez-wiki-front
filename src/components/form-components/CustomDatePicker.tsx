@@ -5,17 +5,15 @@ import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { Dayjs } from "dayjs";
 
 export function CustomDatePicker({
-  label,
   value,
   onChange,
 }: {
-  label?: string;
   value?: Dayjs | null;
   onChange: (newValue: Dayjs | null) => void;
 }) {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <DemoContainer components={["DatePicker"]}>
+      <DemoContainer components={["DatePicker"]} sx={{ pt: 0 }}>
         <DatePicker
           value={value}
           onChange={onChange}
@@ -32,7 +30,7 @@ export function CustomDatePicker({
               InputProps: {
                 size: "small",
                 readOnly: true,
-                // sx: { fontSize: 30, maxWidth: 225 },
+                sx: { borderRadius: 0 },
                 disableUnderline: true,
               },
             },

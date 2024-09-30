@@ -5,4 +5,6 @@ export const ru = {
   "app.setPreferences": "Установите свои предпочтения для вики.",
   "app.today": "Сегодня",
   "app.search": "Поиск",
+  "app.targetLanguage": "Перевести на",
+  "app.rowsPerPage": "Статьи на странице",
 };

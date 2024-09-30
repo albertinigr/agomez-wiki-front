@@ -2,10 +2,13 @@ import { useGlobalContext } from "../context/GlobalContext";
 import { fetchFeeds, translateFeeds } from "../services/feed.service";
 import { ArticleEssencial } from "../types/article-essencial";
 import { PaginatedResource } from "../types/paginated-resource";
+import { SearchFilter } from "../types/search-filter";
 
 export default function useFeed() {
   const {
     locale,
+    searchFilters,
+    setSearchFilters,
     loadingSearchResults,
     setLoadingSearchResults,
     searchResults,
@@ -13,43 +16,32 @@ export default function useFeed() {
   } = useGlobalContext();
 
   const searchFeeds = async (
-    date: string,
-    page: number
+    filters: SearchFilter
   ): Promise<PaginatedResource<ArticleEssencial>> => {
     setLoadingSearchResults(true);
-    const feeds = await fetchFeeds({
+    setSearchFilters(filters);
+    const commonPayload = {
       locale: locale.code,
-      date,
-      page,
-      size: 10,
-    });
-    setSearchResults(feeds);
-    setLoadingSearchResults(false);
-    return feeds;
-  };
-
-  const searchTranslatedFeeds = async (
-    date: string,
-    target: string,
-    page: number
-  ): Promise<PaginatedResource<ArticleEssencial>> => {
-    setLoadingSearchResults(true);
-    const feeds = await translateFeeds({
-      locale: locale.code,
-      target,
-      date,
-      page,
-      size: 10,
-    });
+      date: filters.date,
+      page: filters.page,
+      size: filters.size,
+    };
+    const feeds = filters.target
+      ? await translateFeeds({
+          ...commonPayload,
+          target: filters.target.code,
+        })
+      : await fetchFeeds(commonPayload);
     setSearchResults(feeds);
     setLoadingSearchResults(false);
     return feeds;
   };
 
   return {
+    searchFilters,
     searchResults,
     loadingSearchResults,
     searchFeeds,
-    searchTranslatedFeeds,
+    setSearchFilters,
   };
 }

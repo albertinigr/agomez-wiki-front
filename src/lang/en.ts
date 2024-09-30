@@ -5,4 +5,6 @@ export const en = {
   "app.setPreferences": "Set your preferences for the wiki.",
   "app.today": "Today",
   "app.search": "Search",
+  "app.targetLanguage": "Translate to",
+  "app.rowsPerPage": "Articles per page",
 };

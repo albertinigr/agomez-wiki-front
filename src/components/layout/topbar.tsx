@@ -7,17 +7,13 @@ import { useGlobalContext } from "../../context/GlobalContext";
 import useLocale from "../../hooks/useLocale";
 import { t } from "../lang";
 import { CustomDatePicker } from "../form-components/CustomDatePicker";
-import dayjs from "dayjs";
-import { useEffect, useState } from "react";
+import dayjs, { Dayjs } from "dayjs";
+import { SyntheticEvent, useEffect } from "react";
 import { DATE_FORMAT } from "../../libs/constants";
 import useFeed from "../../hooks/useFeed";
 import { useLocation, useNavigate } from "react-router-dom";
-
-const rightLink = {
-  fontSize: 16,
-  color: "common.white",
-  ml: 3,
-};
+import { Locale } from "../../types/locale";
+import CustomAutoComplete from "../form-components/CustomAutoComplete";
 
 function PreferenceMenu() {
   const { togglePreferences } = useGlobalContext();
@@ -46,28 +42,28 @@ function PreferenceMenu() {
 function TopBar() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const [date, setDate] = useState<string>(dayjs().format(DATE_FORMAT));
-  const [target, setTarget] = useState<string | null>(null);
-  const { searchFeeds, searchTranslatedFeeds } = useFeed();
+  const { availableLanguages } = useLocale();
+  const { searchFilters, setSearchFilters, searchFeeds } = useFeed();
 
   useEffect(() => {
-    searchFeeds(date, 1);
+    searchFeeds(searchFilters);
   }, []);
 
   const handleSearch = () => {
-    if (!date) {
-      return;
-    }
-    const page = 1;
-    if (target) {
-      return searchTranslatedFeeds(date, target, page);
-    } else {
-      searchFeeds(date, page);
-    }
+    searchFeeds(searchFilters);
+    if (pathname !== "/") navigate("/");
+  };
 
-    if (pathname !== "/") {
-      navigate("/");
-    }
+  const handleDateChange = (date: Dayjs | null) => {
+    const selectedDate = dayjs(date).format(DATE_FORMAT);
+    setSearchFilters({ ...searchFilters, date: selectedDate });
+  };
+
+  const handleTargetChange = (
+    _: SyntheticEvent<Element, Event>,
+    newValue: Locale | null
+  ) => {
+    setSearchFilters({ ...searchFilters, target: newValue });
   };
 
   return (
@@ -87,19 +83,26 @@ function TopBar() {
               pedia
             </Typography>
           </Stack>
-          <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <Button color="inherit" sx={rightLink} onClick={() => null}>
-              {t("app.today")}
-            </Button>
+          <Stack
+            direction="row"
+            spacing={2}
+            sx={{ display: { xs: "none", md: "flex" }, alignItems: "center" }}
+          >
             <CustomDatePicker
-              value={dayjs(date)}
-              onChange={(date) => setDate(dayjs(date).format(DATE_FORMAT))}
+              value={dayjs(searchFilters.date)}
+              onChange={handleDateChange}
             />
-            <Button color="inherit" sx={rightLink} onClick={handleSearch}>
-              <Search fontSize="large" sx={{ pr: 1 }} />
+            <CustomAutoComplete<Locale>
+              options={availableLanguages || []}
+              getOptionLabel={(option) => `${option.name} [${option.code}]`}
+              value={searchFilters.target}
+              onChange={handleTargetChange}
+            />
+            <Button color="inherit" onClick={handleSearch}>
               {t("app.search")}
+              <Search fontSize="large" sx={{ pl: 2 }} />
             </Button>
-          </Box>
+          </Stack>
           <Box sx={{ flex: 1, display: "flex", justifyContent: "flex-end" }}>
             <PreferenceMenu />
           </Box>

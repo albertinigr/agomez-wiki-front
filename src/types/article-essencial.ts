@@ -1,3 +1,4 @@
+import { Content } from "./content";
 import { Image } from "./image";
 
 export interface ArticleEssencial {
@@ -7,4 +8,5 @@ export interface ArticleEssencial {
   timestamp: Date;
   thumbnail?: Image;
   wikibase_item: string;
+  content_urls: { desktop: Content; mobile: Content };
 }

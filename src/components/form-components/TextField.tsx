@@ -8,16 +8,16 @@ import { selectClasses } from "@mui/material/Select";
 import { inputLabelClasses } from "@mui/material/InputLabel";
 
 const inputStyleMappingClasses = {
-  small: "OnePirateTextField-inputSizeSmall",
-  medium: "OnePirateTextField-inputSizeMedium",
-  large: "OnePirateTextField-inputSizeLarge",
-  xlarge: "OnePirateTextField-inputSizeXLarge",
+  small: "TextField-inputSizeSmall",
+  medium: "TextField-inputSizeMedium",
+  large: "TextField-inputSizeLarge",
+  xlarge: "TextField-inputSizeXLarge",
 };
 
 const classes = {
-  root: "OnePirateTextField-root",
-  input: "OnePirateTextField-input",
-  inputBorder: "OnePirateTextField-inputBorder",
+  root: "TextField-root",
+  input: "TextField-input",
+  inputBorder: "TextField-inputBorder",
 };
 
 const styles = ({ theme }: { theme: Theme }) => ({
@@ -73,13 +73,13 @@ const styles = ({ theme }: { theme: Theme }) => ({
   },
 });
 
-export interface OnePirateTextFieldProps
+export interface TextFieldProps
   extends Omit<FilledTextFieldProps | StandardTextFieldProps, "size"> {
   noBorder?: boolean;
   size?: "small" | "medium" | "large" | "xlarge";
 }
 
-function TextField(props: OnePirateTextFieldProps) {
+function MyTextField(props: TextFieldProps) {
   const {
     InputProps = {},
     InputLabelProps,
@@ -122,4 +122,4 @@ function TextField(props: OnePirateTextFieldProps) {
   );
 }
 
-export default styled(TextField)(styles);
+export default styled(MyTextField)(styles);

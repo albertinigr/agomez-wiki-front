@@ -9,36 +9,38 @@ import { red } from "@mui/material/colors";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { ArticleEssencial } from "../../types/article-essencial";
 import dayjs from "dayjs";
-import { DATE_FORMAT } from "../../libs/constants";
+import { CARD_HEIGHT, DATE_FORMAT } from "../../libs/constants";
 import { CardActionArea } from "@mui/material";
 import ArticleImage from "../../assets/article.png";
+import { CheckOutlined } from "@mui/icons-material";
 
 export default function ArticleCard({
   article,
+  visited,
+  handleClick,
 }: {
   article: ArticleEssencial;
+  visited: boolean;
+  handleClick?: () => void;
 }) {
   return (
-    <Card>
+    <Card sx={{ height: CARD_HEIGHT }}>
       <CardHeader
-        avatar={<Avatar sx={{ bgcolor: red[500] }}>R</Avatar>}
-        action={
-          <IconButton>
-            <MoreVertIcon />
-          </IconButton>
-        }
+        // avatar={<Avatar sx={{ bgcolor: red[500] }}>R</Avatar>}
+        action={visited && <CheckOutlined />}
         title={
-          <Typography variant="body2" noWrap>
+          <Typography variant="subtitle1" noWrap>
             {article.title}
           </Typography>
         }
-        subheader={dayjs(article.timestamp).format(DATE_FORMAT)}
+        subheader={
+          <Typography variant="subtitle2" noWrap>
+            {dayjs(article.timestamp).format(DATE_FORMAT)}
+          </Typography>
+        }
         sx={{ textAlign: "left" }}
       />
-      <CardActionArea
-        target="_blank"
-        href={`/article/${article.wikibase_item}`}
-      >
+      <CardActionArea onClick={handleClick}>
         <CardMedia
           component="img"
           height="194"
@@ -62,14 +64,6 @@ export default function ArticleCard({
           </Typography>
         </CardContent>
       </CardActionArea>
-      {/* <CardActions disableSpacing>
-        <IconButton>
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton>
-          <ShareIcon />
-        </IconButton>
-      </CardActions> */}
     </Card>
   );
 }
