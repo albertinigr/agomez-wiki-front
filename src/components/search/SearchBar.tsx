@@ -49,7 +49,7 @@ export function SearchBar() {
       />
       <Button
         size="large"
-        color="white"
+        color="primary"
         variant="outlined"
         onClick={handleSearch}
       >
