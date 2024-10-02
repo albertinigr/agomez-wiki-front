@@ -51,7 +51,8 @@ export default function PaginatedContent() {
     window.open(page, "_blank");
   };
 
-  if (loadingSearchResults) return <PaginatedContentSkeleton cards={5} />;
+  if (loadingSearchResults)
+    return <PaginatedContentSkeleton cards={searchResults?.size ?? 5} />;
   return (
     <Stack spacing={2}>
       <Grid container spacing={3}>
