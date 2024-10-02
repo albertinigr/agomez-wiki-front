@@ -58,29 +58,11 @@ export default function PreferenceDialog() {
     );
   };
 
-  const PreferencePanel = () => {
-    return (
-      <div>
-        <Typography component="h6" sx={{ fontWeight: 500 }}>
-          Preferences
-        </Typography>
-        <Typography as="p" className="mt-2">
-          Set your preferences for the wiki.
-        </Typography>
-      </div>
-    );
-  };
-
   const data = [
     {
       label: "Language & Region",
       value: 0,
       panel: <LanguagePanel />,
-    },
-    {
-      label: "Preferences",
-      value: 1,
-      panel: <PreferencePanel />,
     },
   ];
 
