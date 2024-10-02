@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">agomez-wiki-front</string>
+    <string name="title_activity_main">agomez-wiki-front</string>
+    <string name="package_name">com.agomezwiki.app</string>
+    <string name="custom_url_scheme">com.agomezwiki.app</string>
+</resources>

@@ -1,4 +1,3 @@
-"use client";
 import { useGlobalContext } from "./GlobalContext";
 import { IntlProvider } from "react-intl";
 import * as translations from "../lang";
